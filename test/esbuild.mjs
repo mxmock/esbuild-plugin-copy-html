@@ -12,8 +12,8 @@ let ctx = await esbuild.context({
     copyHtmlPlugin({
       htmlFromDir: HTML_FROM,
       outDir: `${OUT_DIR}`,
-      jsFromDir: `${OUT_DIR}/js`,
-      // cssFromDir: `${OUT_DIR}/css`,
+      jsDir: `${OUT_DIR}/js`,
+      // cssDir: `${OUT_DIR}/css`,
     }),
   ],
   outdir: `${OUT_DIR}/js`,

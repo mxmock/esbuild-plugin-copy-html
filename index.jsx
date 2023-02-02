@@ -22,6 +22,8 @@ const onEnd = async ({ htmlFrom, jsFrom, cssFrom, outDir }) => {
       if (!!jsPaths.length) content = handleScripts(jsPaths, path, content);
       await writeHtml(path, content);
       console.log(`Html file copied at path ${path}`);
+      console.log("-------------------------------------------");
+      console.log("-------------------------------------------");
     }
   } catch (e) {
     console.error(`copyHtmlPlugin error - onEnd - ${e.message}`);
@@ -172,8 +174,8 @@ module.exports = (options = {}) => {
   const htmlFrom = stringFilled(options.htmlFromDir)
     ? options.htmlFromDir
     : null;
-  const jsFrom = stringFilled(options.jsFromDir) ? options.jsFromDir : null;
-  const cssFrom = stringFilled(options.cssFromDir) ? options.cssFromDir : null;
+  const jsFrom = stringFilled(options.jsDir) ? options.jsDir : null;
+  const cssFrom = stringFilled(options.cssDir) ? options.cssDir : null;
   const outDir = options.outDir || "out";
   return {
     name: "copyHtmlPlugin",
