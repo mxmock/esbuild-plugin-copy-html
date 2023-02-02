@@ -1,0 +1,28 @@
+{
+  "name": "esbuild-plugin-copy-html",
+  "version": "0.1.0",
+  "description": "An esbuild plugin to generate html files from one directory to another",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mxmock/esbuild-plugin-copy-html.git"
+  },
+  "scripts": {
+    "test": "node test/esbuild.mjs"
+  },
+  "keywords": [
+    "esbuild",
+    "plugin",
+    "html",
+    "minify"
+  ],
+  "author": "Ockode",
+  "license": "MIT",
+  "homepage": "https://github.com/mxmock/esbuild-plugin-copy-html/blob/main/README.md",
+  "devDependencies": {
+    "esbuild": "^0.17.3"
+  },
+  "dependencies": {
+    "html-minifier": "^4.0.0"
+  }
+}
