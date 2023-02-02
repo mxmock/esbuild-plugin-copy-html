@@ -13,6 +13,7 @@ let ctx = await esbuild.context({
       htmlFromDir: HTML_FROM,
       outDir: `${OUT_DIR}`,
       jsDir: `${OUT_DIR}/js`,
+      // removeOriginalDir: true,
       // cssDir: `${OUT_DIR}/css`,
     }),
   ],

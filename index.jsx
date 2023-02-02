@@ -2,10 +2,10 @@ const path = require("path");
 const fs = require("node:fs/promises");
 const minify = require("html-minifier").minify;
 
-const { writeFile, readFile, mkdir, readdir, stat } = fs;
+const { rm, writeFile, readFile, mkdir, readdir, stat } = fs;
 const CURRENT_DIR = process.cwd();
 
-const onEnd = async ({ htmlFrom, jsFrom, cssFrom, outDir }) => {
+const onEnd = async ({ htmlFrom, jsFrom, cssFrom, outDir, removeAfter }) => {
   try {
     if (!htmlFrom) throw new Error(`Must indicate where html come from`);
     await mkdir(outDir, { recursive: true });
@@ -25,6 +25,8 @@ const onEnd = async ({ htmlFrom, jsFrom, cssFrom, outDir }) => {
       console.log("-------------------------------------------");
       console.log("-------------------------------------------");
     }
+
+    if (removeAfter) await removeFolder(htmlFrom);
   } catch (e) {
     console.error(`copyHtmlPlugin error - onEnd - ${e.message}`);
   }
@@ -166,6 +168,14 @@ const isFolder = async (path) => {
   return !result ? result : result.isDirectory();
 };
 
+const removeFolder = (path) =>
+  new Promise((resolve, reject) => {
+    rm(path, { recursive: true, force: true }, (err) => {
+      if (err) reject(err);
+      resolve(`${path} was deleted`);
+    });
+  });
+
 const isErrorNotFound = (err) => err.code === "ENOENT";
 
 const stringFilled = (s) => typeof s === "string" && s.length > 0;
@@ -177,11 +187,12 @@ module.exports = (options = {}) => {
   const jsFrom = stringFilled(options.jsDir) ? options.jsDir : null;
   const cssFrom = stringFilled(options.cssDir) ? options.cssDir : null;
   const outDir = options.outDir || "out";
+  const removeAfter = !!options.removeOriginalDir;
   return {
     name: "copyHtmlPlugin",
     setup: (build) => {
       build.onEnd(async (r) => {
-        await onEnd({ htmlFrom, jsFrom, cssFrom, outDir });
+        await onEnd({ htmlFrom, jsFrom, cssFrom, outDir, removeAfter });
       });
     },
   };

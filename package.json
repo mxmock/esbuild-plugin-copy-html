@@ -1,6 +1,6 @@
 {
   "name": "esbuild-plugin-copy-html",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "An esbuild plugin to generate html files from one directory to another",
   "main": "index.js",
   "repository": {
